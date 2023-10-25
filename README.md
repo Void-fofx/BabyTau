@@ -1,6 +1,6 @@
 # BabyȾau
 
-BabyȾau is an organizational tool to help with bug hunting.
+BabyȾau is an organizational tool to help with bug hunting. The name is an anagram of the acronym [AYBABTU](https://en.wikipedia.org/wiki/All_your_base_are_belong_to_us "Wikipedia").
 
 ## Installation
 
@@ -20,6 +20,7 @@ python tau.py
 ## Contributing
 
 Pull requests are welcome.
+![alt text](https://i.kym-cdn.com/photos/images/newsfeed/000/000/999/AllYourBaseAnimated.gif "Someone set us up the bomb!")
 
 ## License
 
