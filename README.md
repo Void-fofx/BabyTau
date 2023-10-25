@@ -19,7 +19,6 @@ python tau.py
 
 ## Contributing
 
-Pull requests are welcome.
 ![alt text](https://i.kym-cdn.com/photos/images/newsfeed/000/000/999/AllYourBaseAnimated.gif "Someone set us up the bomb!")
 
 ## License
