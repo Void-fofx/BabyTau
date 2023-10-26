@@ -12,6 +12,7 @@ def menu() -> []:
     port = int(input("[+] Please enter the target port: "))
     return [url, port]
 
+# TODO add functionality to guess technologies used on page
 class Tau():
     def __init__(self, url: str = 'localhost', port: int = 80):
         self.url = url
@@ -25,6 +26,8 @@ class Tau():
         self.js_urls = [str]
         self.js = [str]
         self.comments = [str]
+
+        self.connect()
     
 
     def connect(self):
@@ -40,6 +43,15 @@ class Tau():
         v4 = socket.getaddrinfo(self.host, None, socket.AF_INET)
         (_, _, _, _, (ipv4,_)) = v4[0]
         self.ip4 = ipv4
+
+
+    def scrape_js(self):
+        soup = bs(self.html, 'html.parser')
+        print(soup.find_all('script'))
+
+    def scrape_urls(self):
+        soup = bs(self.html, 'html.parser')
+        print(soup.find_all('a'))
 
 
     def show_html_pretty(self):
