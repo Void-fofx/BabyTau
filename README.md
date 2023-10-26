@@ -8,16 +8,19 @@ Clone this repository and run 'tau.py' from within the BabyȾau directory.
 
 ```bash
 git clone https://github.com/Void-fofx/BabyȾau.git
+cd BabyȾau
+pip install -r requirements.txt
 ```
 
 ## Usage
 
 ```bash
-cd BabyȾau
 python tau.py
 ```
 
 ## Contributing
+
+Feel free to submit pull requests or offer comments. Any help is welcome.
 
 ![alt text](https://i.kym-cdn.com/photos/images/newsfeed/000/000/999/AllYourBaseAnimated.gif "Someone set us up the bomb!")
 

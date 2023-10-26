@@ -1,4 +1,4 @@
-from banner import banner
+from lib.banner import banner
 import requests as req
 import socket
 import os
@@ -27,16 +27,17 @@ class Tau():
         self.js = [str]
         self.comments = [str]
 
-        self.connect()
+        self.http_get()
     
 
-    def connect(self):
+    def http_get(self):
         print("Sending HTTP GET...")
         resp = req.get(self.url)
         print(f"Server returned {resp}")
         self.html = resp.text
 
     def set_ips(self):
+        print("Acquiring ip address")
         v6 = socket.getaddrinfo(self.host, None, socket.AF_INET6)
         (_, _, _, _, (ipv6,_,_,_)) = v6[0]
         self.ip6 = ipv6
