@@ -12,7 +12,7 @@ CREDS = {
     'database': os.getenv('DB_NAME')
 }
 
-def connect():
+def db_connect():
     try:
         conn = pg.connect(**CREDS)
     except pg.OperationalError as e:

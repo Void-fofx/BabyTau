@@ -11,14 +11,14 @@ DROP TABLE IF EXISTS site.site CASCADE;
 -- Create table site
 CREATE TABLE IF NOT EXISTS site.site (
 	site_id           SERIAL       PRIMARY KEY,
-	homepage_data_id  INT8         UNIQUE NOT NULL,
-	homepage_id       INT8         UNIQUE NOT NULL,
-	url               VARCHAR      NULL,
+	homepage_data_id  INT          UNIQUE NOT NULL,
+	homepage_id       INT          UNIQUE NOT NULL,
+	full_url          VARCHAR      NULL,
 	endpoint_path     VARCHAR      NULL,
 	protocol          VARCHAR      NULL,
 	params            VARCHAR[]    NULL,
 	page_extension    VARCHAR(10)  NULL,
-	port              INT8         NULL,
+	port              INT          NULL,
 	tl_domain         VARCHAR      NULL,
 	sub_domains       VARCHAR[]    NULL,
 	date_updated      DATE         DEFAULT CURRENT_DATE
@@ -37,16 +37,17 @@ DROP TABLE IF EXISTS page_data.page CASCADE;
 -- Create table page
 CREATE TABLE IF NOT EXISTS page_data.page (
 	page_id          SERIAL       PRIMARY KEY,
-	page_data_id     INT8         UNIQUE NOT NULL,
-	site_id          INT8         UNIQUE NOT NULL,
-	url              VARCHAR      NULL,
+	page_data_id     INT          UNIQUE NOT NULL,
+	site_id          INT          UNIQUE NOT NULL,
+	full_url         VARCHAR      NULL,
 	endpoint_path    VARCHAR      NULL,
 	protocol         VARCHAR      NULL,
 	params           VARCHAR[]    NULL,
 	page_extension   VARCHAR(10)  NULL,
-	port             INT8         NULL,
+	port             INT          NULL,
 	tl_domain        VARCHAR      NULL,
 	sub_domains      VARCHAR[]    NULL,
+	homepage         BOOLEAN      NOT NULL,
 	date_updated     DATE         DEFAULT CURRENT_DATE
 );
 
@@ -66,6 +67,12 @@ CREATE TABLE IF NOT EXISTS page_data.page_data (
 	params           VARCHAR[]    NULL,
 	urls             VARCHAR[]    NULL,
 	date_updated     DATE         DEFAULT CURRENT_DATE
+	post_resp        VARCHAR      NULL,
+	get_resp         VARCHAR      NULL,
+	options_resp     VARCHAR      NULL,
+	put_resp         VARCHAR      NULL,
+	patch_resp       VARCHAR      NULL,
+	head_resp        VARCHAR      NULL
 );
 
 
