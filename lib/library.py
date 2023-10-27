@@ -118,22 +118,3 @@ def set_page_data_info(url: str, port: int) -> {}:
     db_page_data['patch_resp'] = None
     db_page_data['head_resp'] = None
     return db_page_data
-
-
-
-
-
-
-
-
-
-
-
-: '',
-	: '',
-	: '',
-	: [],
-	: '',
-	: '',
-	: '',
-	: []
