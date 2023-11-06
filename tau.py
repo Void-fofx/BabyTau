@@ -4,13 +4,14 @@ from lib.db_connection import *
 
 
 def main():
+    conn = db_connect()
+    init_db_tables(conn)
     banner()
     url, port = menu()
-    test = get_page_extension(url)
-    print(test)
-
-
+    site = set_site_info(url, port)
     
+
+# TODO use sql to insert some new data into db
 
 
 if __name__ =="__main__":

@@ -1,5 +1,3 @@
------------- SCHEMA: site ------------ 
---Delete schema
 DROP SCHEMA IF EXISTS site CASCADE;
 --Create schema
 CREATE SCHEMA IF NOT EXISTS site;
@@ -21,6 +19,8 @@ CREATE TABLE IF NOT EXISTS site.site (
 	port              INT          NULL,
 	tl_domain         VARCHAR      NULL,
 	sub_domains       VARCHAR[]    NULL,
+	ipv4              VARCHAR      NULL,
+	ipv6              VARCHAR      NULL,
 	date_updated      DATE         DEFAULT CURRENT_DATE
 );
 
@@ -60,19 +60,21 @@ CREATE TABLE IF NOT EXISTS page_data.page_data (
 	page_data_id     SERIAL       PRIMARY KEY,
 	page_id          INT          UNIQUE NOT NULL,
 	site_id          INT          UNIQUE NOT NULL,
+	html             VARCHAR      NOT NULL,
+	html_pretty      VARCHAR      NULL,
 	comments         VARCHAR[]    NULL,
 	js_code          TEXT         NULL,
 	js_urls          VARCHAR[]    NULL,
 	page_extension   VARCHAR(10)  NULL,
 	params           VARCHAR[]    NULL,
 	urls             VARCHAR[]    NULL,
-	date_updated     DATE         DEFAULT CURRENT_DATE
 	post_resp        VARCHAR      NULL,
 	get_resp         VARCHAR      NULL,
 	options_resp     VARCHAR      NULL,
 	put_resp         VARCHAR      NULL,
 	patch_resp       VARCHAR      NULL,
-	head_resp        VARCHAR      NULL
+	head_resp        VARCHAR      NULL,
+	date_updated     DATE         DEFAULT CURRENT_DATE
 );
 
 
