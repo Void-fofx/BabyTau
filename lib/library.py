@@ -60,6 +60,7 @@ def get_ipv4(url: str) -> str:
     try:
         v4 = socket.gethostbyname(url)
     except OSError as e:
+        v4 = None
         print("Unable to find IPv4 address.")
     return v4
 
