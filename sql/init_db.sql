@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS site.site CASCADE;
 -- Create table site
 CREATE TABLE IF NOT EXISTS site.site (
 	site_id           SERIAL       PRIMARY KEY,
-	homepage_data_id  INT          UNIQUE NOT NULL,
-	homepage_id       INT          UNIQUE NOT NULL,
+	homepage_data_id  INT          UNIQUE,
+	homepage_id       INT          UNIQUE,
 	full_url          VARCHAR      NULL,
 	endpoint_path     VARCHAR      NULL,
 	protocol          VARCHAR      NULL,
@@ -37,8 +37,8 @@ DROP TABLE IF EXISTS page_data.page CASCADE;
 -- Create table page
 CREATE TABLE IF NOT EXISTS page_data.page (
 	page_id          SERIAL       PRIMARY KEY,
-	page_data_id     INT          UNIQUE NOT NULL,
-	site_id          INT          UNIQUE NOT NULL,
+	page_data_id     INT          UNIQUE,
+	site_id          INT          UNIQUE,
 	full_url         VARCHAR      NULL,
 	endpoint_path    VARCHAR      NULL,
 	protocol         VARCHAR      NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS page_data.page (
 	port             INT          NULL,
 	tl_domain        VARCHAR      NULL,
 	sub_domains      VARCHAR[]    NULL,
-	homepage         BOOLEAN      NOT NULL,
+	homepage         BOOLEAN      NULL,
 	date_updated     DATE         DEFAULT CURRENT_DATE
 );
 
@@ -58,9 +58,9 @@ DROP TABLE IF EXISTS page_data.page_data CASCADE;
 -- Create table page_data.page_data
 CREATE TABLE IF NOT EXISTS page_data.page_data (
 	page_data_id     SERIAL       PRIMARY KEY,
-	page_id          INT          UNIQUE NOT NULL,
-	site_id          INT          UNIQUE NOT NULL,
-	html             VARCHAR      NOT NULL,
+	page_id          INT          UNIQUE,
+	site_id          INT          UNIQUE,
+	html             VARCHAR      NULL,
 	html_pretty      VARCHAR      NULL,
 	comments         VARCHAR[]    NULL,
 	js_code          TEXT         NULL,
@@ -78,32 +78,32 @@ CREATE TABLE IF NOT EXISTS page_data.page_data (
 );
 
 
--- Add foreign key constraints to site.site
-ALTER TABLE site.site
-ADD FOREIGN KEY (homepage_data_id) REFERENCES page_data.page_data(page_data_id) ON DELETE CASCADE;
+-- -- Add foreign key constraints to site.site
+-- ALTER TABLE site.site
+-- ADD FOREIGN KEY (homepage_data_id) REFERENCES page_data.page_data(page_data_id) ON DELETE CASCADE;
 
-ALTER TABLE site.site
-ADD FOREIGN KEY (homepage_id) REFERENCES page_data.page(page_id) ON DELETE CASCADE;
+-- ALTER TABLE site.site
+-- ADD FOREIGN KEY (homepage_id) REFERENCES page_data.page(page_id) ON DELETE CASCADE;
 
--- Add unique indexes to site.site
-CREATE UNIQUE INDEX site_id on site.site (site_id, homepage_data_id, homepage_id);
+-- -- Add unique indexes to site.site
+-- CREATE UNIQUE INDEX site_id on site.site (site_id, homepage_data_id, homepage_id);
 
--- Add foreign key constraints to page_data.page
-ALTER TABLE page_data.page
-ADD FOREIGN KEY (page_data_id) REFERENCES page_data.page_data(page_id) ON DELETE CASCADE;
+-- -- Add foreign key constraints to page_data.page
+-- ALTER TABLE page_data.page
+-- ADD FOREIGN KEY (page_data_id) REFERENCES page_data.page_data(page_id) ON DELETE CASCADE;
 
-ALTER TABLE page_data.page
-ADD FOREIGN KEY (site_id) REFERENCES site.site(site_id);
+-- ALTER TABLE page_data.page
+-- ADD FOREIGN KEY (site_id) REFERENCES site.site(site_id);
 
--- Add unique indexes to page_data.page
-CREATE UNIQUE INDEX page_id on page_data.page (page_id, page_data_id, site_id);
+-- -- Add unique indexes to page_data.page
+-- CREATE UNIQUE INDEX page_id on page_data.page (page_id, page_data_id, site_id);
 
--- Add foreign key constraints to page_data.page_data
-ALTER TABLE page_data.page_data
-ADD FOREIGN KEY (page_id) REFERENCES page_data.page(page_id);
+-- -- Add foreign key constraints to page_data.page_data
+-- ALTER TABLE page_data.page_data
+-- ADD FOREIGN KEY (page_id) REFERENCES page_data.page(page_id);
 
-ALTER TABLE page_data.page_data
-ADD FOREIGN KEY (site_id) REFERENCES site.site(site_id);
+-- ALTER TABLE page_data.page_data
+-- ADD FOREIGN KEY (site_id) REFERENCES site.site(site_id);
 
--- Add unique indexes to page_data.page_data
-CREATE UNIQUE INDEX page_data_id on page_data.page_data (page_data_id, page_id, site_id);
+-- -- Add unique indexes to page_data.page_data
+-- CREATE UNIQUE INDEX page_data_id on page_data.page_data (page_data_id, page_id, site_id);

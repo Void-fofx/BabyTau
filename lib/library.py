@@ -21,6 +21,9 @@ def http_get(url: str) -> str:
     print(f"Server returned {resp}")
     return resp.text
 
+def get_netloc(url: str) -> str:
+    return urlparse(url).netloc
+
 def get_path(url: str) -> str:
     return urlparse(url).path
 
@@ -28,7 +31,8 @@ def get_protocol(url: str) -> str:
     return urlparse(url).scheme
 
 def get_params(url: str) -> [str]:
-    return urlparse(url).params
+    params = urlparse(url).params
+    return [x for x in params]
 
 def get_page_extension(url: str) -> str:
     path = urlparse(url).path
@@ -40,9 +44,9 @@ def get_tl_domain(url: str) -> str:
     split = urlparse(url).geturl().rsplit('.', 1)
     return split[-1]
 
-def get_subdomains(url: str) -> [str]:
+def get_sub_domains(url: str) -> [str]:
     split = urlparse(url).geturl().rsplit('.')
-    return split
+    return [x for x in split]
 
 def http_post(url: str) -> str:
     print("Sending HTTP POST...")
@@ -51,14 +55,12 @@ def http_post(url: str) -> str:
     return resp.text
 
 def get_ipv4(url: str) -> str:
-    v4 = socket.getaddrinfo(url, None, socket.AF_INET)
-    (_, _, _, _, (ipv4,_)) = v4[0]
-    return ipv4
+    v4 = socket.gethostbyname(url)
+    return v4
 
 def get_ipv6(url: str) -> str:
-    v6 = socket.getaddrinfo(url, None, socket.AF_INET6)
-    (_, _, _, _, (ipv6,_,_,_)) = v6[0]
-    return ipv6
+    v6 = socket.gethostbyname(url)
+    return v6
 
 def scrape_js(html: str) -> [str]:
     soup = bs(html, 'html.parser')
@@ -75,7 +77,6 @@ def get_html_pretty(html: str) -> str:
 
 def set_site_info(url: str, port: int) -> object:
     db_site = {}
-    html = http_get(url)
     db_site['full_url'] = url
     db_site['endpoint_path'] = get_path(url)
     db_site['protocol'] = get_protocol(url)
@@ -83,6 +84,9 @@ def set_site_info(url: str, port: int) -> object:
     db_site['page_extension'] = get_page_extension(url)
     db_site['port'] = port
     db_site['tl_domain'] = get_tl_domain(url)
+    db_site['sub_domains'] = get_sub_domains(url)
+    db_site['ipv4'] = get_ipv4(get_netloc(url))
+    db_site['ipv6'] = get_ipv6(get_netloc(url))
     return db_site
 
 def set_page_info(url: str, port: int) -> object:
@@ -94,7 +98,7 @@ def set_page_info(url: str, port: int) -> object:
     db_page['page_extension'] = get_page_extension(url)
     db_page['port'] = port
     db_page['tl_domain'] = get_tl_domain(url)
-    db_page['sub_domains'] = get_subdomains(url)
+    db_page['sub_domains'] = get_sub_domains(url)
     db_page['homepage'] = False
     return db_page
 

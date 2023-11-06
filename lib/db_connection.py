@@ -33,7 +33,6 @@ def execute_sql(sql: str, conn: pg.extensions.connection, params = None):
         cur.execute(sql, params)
         result = cur.fetchall()
         conn.commit()
-        conn.close()
         return result
     
 def execute_sql_no_return(conn: pg.extensions.connection, sql: str, params = None):
@@ -43,9 +42,12 @@ def execute_sql_no_return(conn: pg.extensions.connection, sql: str, params = Non
     with conn.cursor() as cur:
         cur.execute(sql, params)
         conn.commit()
-        cur.close()
     
 def init_db_tables(conn: pg.extensions.connection) -> None:
     init_db = read_sql('init_db')
     execute_sql_no_return(conn, init_db)
+
+def save_site(conn: pg.extensions.connection, params = None) -> None:
+    init_db = read_sql('new_site')
+    execute_sql_no_return(conn, init_db, params)
 

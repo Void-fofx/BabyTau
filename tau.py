@@ -9,6 +9,7 @@ def main():
     banner()
     url, port = menu()
     site = set_site_info(url, port)
+    save_site(conn, site)
     
 
 # TODO use sql to insert some new data into db
