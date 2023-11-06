@@ -48,6 +48,10 @@ def init_db_tables(conn: pg.extensions.connection) -> None:
     execute_sql_no_return(conn, init_db)
 
 def save_site(conn: pg.extensions.connection, params = None) -> None:
-    init_db = read_sql('new_site')
-    execute_sql_no_return(conn, init_db, params)
+    site = read_sql('new_site')
+    execute_sql_no_return(conn, site, params)
+
+def save_page(conn: pg.extensions.connection, params = None) -> None:
+    page = read_sql('new_page')
+    execute_sql_no_return(conn, page, params)
 

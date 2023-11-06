@@ -10,9 +10,8 @@ def main():
     url, port = menu()
     site = set_site_info(url, port)
     save_site(conn, site)
-    
-
-# TODO use sql to insert some new data into db
+    page = set_page_info(url, port)
+    save_page(conn, page)
 
 
 if __name__ =="__main__":

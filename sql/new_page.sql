@@ -1,0 +1,22 @@
+INSERT INTO page_data.page(
+        full_url,
+        endpoint_path,
+        protocol,
+        params,
+        page_extension,
+        port,
+        tl_domain,
+        sub_domains,
+        homepage
+    )
+VALUES(
+        %(full_url)s,
+        %(endpoint_path)s,
+        %(protocol)s,
+        %(params)s,
+        %(page_extension)s,
+        %(port)s,
+        %(tl_domain)s,
+        %(sub_domains)s,
+        %(homepage)s
+    );

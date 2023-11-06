@@ -1,4 +1,5 @@
 from lib.banner import banner
+import tldextract as tld
 import requests as req
 import socket
 import os
@@ -41,12 +42,13 @@ def get_page_extension(url: str) -> str:
     
 
 def get_tl_domain(url: str) -> str:
-    split = urlparse(url).geturl().rsplit('.', 1)
-    return split[-1]
+    result = tld.extract(url)
+    return result.fqdn
 
 def get_sub_domains(url: str) -> [str]:
-    split = urlparse(url).geturl().rsplit('.')
-    return [x for x in split]
+    subs = tld.extract(url)
+    split = subs.subdomain.rsplit('.')
+    return split
 
 def http_post(url: str) -> str:
     print("Sending HTTP POST...")
@@ -55,11 +57,18 @@ def http_post(url: str) -> str:
     return resp.text
 
 def get_ipv4(url: str) -> str:
-    v4 = socket.gethostbyname(url)
+    try:
+        v4 = socket.gethostbyname(url)
+    except OSError as e:
+        print("Unable to find IPv4 address.")
     return v4
 
 def get_ipv6(url: str) -> str:
-    v6 = socket.gethostbyname(url)
+    try:
+        v6 = socket.getaddrinfo(url, None, socket.AF_INET6)[0][4][0]
+    except OSError as e:
+        v6 = None
+        print("Unable to find IPv6 address.")
     return v6
 
 def scrape_js(html: str) -> [str]:
