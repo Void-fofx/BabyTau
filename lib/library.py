@@ -1,4 +1,3 @@
-from lib.banner import banner
 import tldextract as tld
 import requests as req
 import socket
